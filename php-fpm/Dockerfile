@@ -41,6 +41,8 @@ RUN set -xe; \
       apt-utils \
       gnupg2 \
       git \
+      cron \
+      htop \
       #
       #--------------------------------------------------------------------------
       # Mandatory Software's Installation
@@ -1317,8 +1319,18 @@ ENV PUID ${PUID}
 ARG PGID=1000
 ENV PGID ${PGID}
 
+# create non-root user
 RUN groupmod -o -g ${PGID} www-data && \
     usermod -o -u ${PUID} -g www-data www-data
+
+###########################################################################
+# Crontab
+###########################################################################
+USER root
+COPY ./crontab/www-data /etc/cron.d/www-data
+RUN chmod -R 644 /etc/cron.d
+RUN crontab -u www-data /etc/cron.d/www-data \
+    && chmod u+s /usr/sbin/cron
 
 # Adding the faketime library to the preload file needs to be done last
 # otherwise it will preload it for all commands that follow in this file
@@ -1332,6 +1344,13 @@ ENV LC_ALL ${LOCALE}
 
 WORKDIR /var/www
 
-CMD ["php-fpm"]
+# change user
+USER www-data
+
+# Configure cron.
+ARG CRON=0
+ENV CRON ${CRON}
+
+CMD bash -c 'if [ "$CRON" = "1" ]; then cron; fi && php-fpm'
 
 EXPOSE 9000
