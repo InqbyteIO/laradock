@@ -366,7 +366,7 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; then \
 COPY ./xdebug.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini
 
 RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] || { [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ] && { [ $(php -r "echo PHP_MINOR_VERSION;") = "4" ] || [ $(php -r "echo PHP_MINOR_VERSION;") = "3" ] ;} ;}; then \
-  sed -i "s/xdebug.remote_host=/xdebug.client_host=host.docker.internal/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
+  sed -i "s/xdebug.remote_host=/xdebug.client_host=/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
   sed -i "s/xdebug.remote_connect_back=0/xdebug.discover_client_host=1/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
   sed -i "s/xdebug.remote_port=9000/xdebug.client_port=${XDEBUG_PORT}/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
   sed -i "s/xdebug.profiler_enable=0/; xdebug.profiler_enable=0/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \

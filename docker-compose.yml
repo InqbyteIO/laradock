@@ -214,7 +214,7 @@ services:
       build:
         context: ./php-fpm
         tags:
-          - ${COMPOSE_PROJECT_NAME}-workspace:${TAG}
+          - ${COMPOSE_PROJECT_NAME}-php-fpm:${TAG}
         args:
           - CHANGE_SOURCE=${CHANGE_SOURCE}
           - BASE_IMAGE_TAG_PREFIX=${PHP_FPM_BASE_IMAGE_TAG_PREFIX}
