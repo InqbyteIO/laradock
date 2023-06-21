@@ -59,6 +59,8 @@ services:
     workspace:
       build:
         context: ./workspace
+        tags:
+          - ${COMPOSE_PROJECT_NAME}-workspace:${TAG}
         args:
           - CHANGE_SOURCE=${CHANGE_SOURCE}
           - SHELL_OH_MY_ZSH=${SHELL_OH_MY_ZSH}
@@ -211,6 +213,8 @@ services:
     php-fpm:
       build:
         context: ./php-fpm
+        tags:
+          - ${COMPOSE_PROJECT_NAME}-workspace:${TAG}
         args:
           - CHANGE_SOURCE=${CHANGE_SOURCE}
           - BASE_IMAGE_TAG_PREFIX=${PHP_FPM_BASE_IMAGE_TAG_PREFIX}
