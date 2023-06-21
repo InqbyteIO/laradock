@@ -1079,8 +1079,6 @@ services:
         - '5001:5001'
       environment:
         LS_JAVA_OPTS: '-Xmx1g -Xms1g'
-      env_file:
-        - .env
       networks:
         - frontend
         - backend
@@ -1627,8 +1625,6 @@ services:
       image: arachnysdocker/athenapdf-service
       ports:
         - "8080:8080"
-      env_file:
-        - ./weaver/conf/sample.env
       networks:
         - backend
       depends_on:

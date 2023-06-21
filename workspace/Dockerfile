@@ -189,14 +189,14 @@ RUN echo "" >> ~/.bashrc && \
     echo 'export PATH="/var/www/vendor/bin:$PATH"' >> ~/.bashrc
 
 ###########################################################################
-# Crontab
+# Crontab - OFF
 ###########################################################################
 
-USER root
+# USER root
 
-COPY ./crontab /etc/cron.d
+# COPY ./crontab /etc/cron.d
 
-RUN chmod -R 644 /etc/cron.d
+# RUN chmod -R 644 /etc/cron.d
 
 ###########################################################################
 # Certificate Authorities
@@ -366,14 +366,14 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; then \
 COPY ./xdebug.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini
 
 RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] || { [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ] && { [ $(php -r "echo PHP_MINOR_VERSION;") = "4" ] || [ $(php -r "echo PHP_MINOR_VERSION;") = "3" ] ;} ;}; then \
-  sed -i "s/xdebug.remote_host=/xdebug.client_host=/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
-  sed -i "s/xdebug.remote_connect_back=0/xdebug.discover_client_host=false/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
+  sed -i "s/xdebug.remote_host=/xdebug.client_host=host.docker.internal/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
+  sed -i "s/xdebug.remote_connect_back=0/xdebug.discover_client_host=1/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
   sed -i "s/xdebug.remote_port=9000/xdebug.client_port=${XDEBUG_PORT}/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
   sed -i "s/xdebug.profiler_enable=0/; xdebug.profiler_enable=0/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
   sed -i "s/xdebug.profiler_output_dir=/xdebug.output_dir=/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
   sed -i "s/xdebug.remote_mode=req/; xdebug.remote_mode=req/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
-  sed -i "s/xdebug.remote_autostart=0/xdebug.start_with_request=yes/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
-  sed -i "s/xdebug.remote_enable=0/xdebug.mode=debug/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini \
+  sed -i "s/xdebug.remote_autostart=0/xdebug.start_with_request=trigger/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
+  sed -i "s/xdebug.remote_enable=0/xdebug.mode=develop,debug,profile/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini \
 ;else \
   sed -i "s/xdebug.remote_autostart=0/xdebug.remote_autostart=1/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
   sed -i "s/xdebug.remote_enable=0/xdebug.remote_enable=1/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini \
