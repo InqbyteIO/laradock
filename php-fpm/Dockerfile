@@ -42,7 +42,6 @@ RUN set -xe; \
       gnupg2 \
       git \
       cron \
-      htop \
       #
       #--------------------------------------------------------------------------
       # Mandatory Software's Installation
