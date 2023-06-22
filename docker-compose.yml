@@ -61,6 +61,9 @@ services:
         context: ./workspace
         tags:
           - ${COMPOSE_PROJECT_NAME}-workspace:${TAG}
+        platforms:
+          - linux/amd64
+          - linux/arm64
         args:
           - CHANGE_SOURCE=${CHANGE_SOURCE}
           - SHELL_OH_MY_ZSH=${SHELL_OH_MY_ZSH}
@@ -215,7 +218,11 @@ services:
         context: ./php-fpm
         tags:
           - ${COMPOSE_PROJECT_NAME}-php-fpm:${TAG}
+        platforms:
+          - linux/amd64
+          - linux/arm64
         args:
+          - DOCKER_BUILDKIT=1
           - CHANGE_SOURCE=${CHANGE_SOURCE}
           - BASE_IMAGE_TAG_PREFIX=${PHP_FPM_BASE_IMAGE_TAG_PREFIX}
           - LARADOCK_PHP_VERSION=${PHP_VERSION}
