@@ -220,6 +220,7 @@ services:
           - ${ORGANIZATION}/${COMPOSE_PROJECT_NAME}-php-fpm:${TAG}
         platforms:
           - linux/arm64
+          - linux/amd64
         args:
           - DOCKER_BUILDKIT=1
           - CHANGE_SOURCE=${CHANGE_SOURCE}
