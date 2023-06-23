@@ -1,11 +1,12 @@
 #!/bin/bash
 TAG=$1
+PLATFORM=$2
 
 # build images
-docker compose --env-file .env.$TAG build php-fpm workspace
+docker compose --env-file .env.$TAG build --build-arg PLATFORM=$PLATFORM php-fpm workspace
 
 #push to dockerhub
-docker push $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG
+docker push $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG-$PLATFORM
 
 #create multiarch manifest
 docker manifest create $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG \

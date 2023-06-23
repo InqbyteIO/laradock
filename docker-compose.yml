@@ -60,7 +60,7 @@ services:
       build:
         context: ./workspace
         tags:
-          - ${ORGANIZATION}/${COMPOSE_PROJECT_NAME}-workspace:${TAG}-amd64
+          - ${ORGANIZATION}/${COMPOSE_PROJECT_NAME}-workspace:${TAG}-${PLATFORM}
         args:
           - CHANGE_SOURCE=${CHANGE_SOURCE}
           - SHELL_OH_MY_ZSH=${SHELL_OH_MY_ZSH}
@@ -214,7 +214,7 @@ services:
       build:
         context: ./php-fpm
         tags:
-          - ${ORGANIZATION}/${COMPOSE_PROJECT_NAME}-php-fpm:${TAG}-amd64
+          - ${ORGANIZATION}/${COMPOSE_PROJECT_NAME}-php-fpm:${TAG}-${PLATFORM}
         args:
           - CHANGE_SOURCE=${CHANGE_SOURCE}
           - BASE_IMAGE_TAG_PREFIX=${PHP_FPM_BASE_IMAGE_TAG_PREFIX}
