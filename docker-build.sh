@@ -3,15 +3,21 @@ TAG=$1
 PLATFORM=$2
 
 # build images
-docker compose --env-file .env.$TAG build --build-arg PLATFORM=$PLATFORM php-fpm workspace
+echo "building image"
+cat .env.$TAG > .temp
+echo "PLATFORM=$2" >> .temp
+docker compose --env-file .temp build php-fpm workspace
+rm .temp
 
 #push to dockerhub
-docker push $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG-$PLATFORM
+echo "pushing to dockerhub"
+docker push "$ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG-$PLATFORM"
 
 #create multiarch manifest
+echo "creating shared manifest"
 docker manifest create $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG \
---amend $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG-amd64 \
---amend $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG-arm64
+    $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG-$PLATFORM
 
 #push to dockerhub
+echo "pushing shared manifest to dockerhub"
 docker manifest push --purge $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG
