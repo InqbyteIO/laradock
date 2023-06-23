@@ -60,10 +60,10 @@ services:
       build:
         context: ./workspace
         tags:
-          - ${ORGANIZATION}/${COMPOSE_PROJECT_NAME}-php-fpm:${TAG}
+          - ${ORGANIZATION}/${COMPOSE_PROJECT_NAME}-workspace:${TAG}
         platforms:
-          - linux/amd64
           - linux/arm64
+          - linux/amd64
         args:
           - CHANGE_SOURCE=${CHANGE_SOURCE}
           - SHELL_OH_MY_ZSH=${SHELL_OH_MY_ZSH}
