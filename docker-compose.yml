@@ -216,7 +216,6 @@ services:
         tags:
           - ${ORGANIZATION}/${COMPOSE_PROJECT_NAME}-php-fpm:${TAG}
         args:
-          - DOCKER_BUILDKIT=1
           - CHANGE_SOURCE=${CHANGE_SOURCE}
           - BASE_IMAGE_TAG_PREFIX=${PHP_FPM_BASE_IMAGE_TAG_PREFIX}
           - LARADOCK_PHP_VERSION=${PHP_VERSION}
