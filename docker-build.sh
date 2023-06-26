@@ -14,14 +14,14 @@ echo "pushing to dockerhub"
 docker push "$ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG-$PLATFORM"
 docker push "$ORGANIZATION/$COMPOSE_PROJECT_NAME-workspace:$TAG-$PLATFORM"
 
-#create multiarch manifest
-echo "creating shared manifest"
-docker manifest create $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG \
-    $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG-$PLATFORM
-docker manifest create $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG \
-    $ORGANIZATION/$COMPOSE_PROJECT_NAME-workspace:$TAG-$PLATFORM
+# #create multiarch manifest
+# echo "creating shared manifest"
+# docker manifest create $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG \
+#     $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG-$PLATFORM
+# docker manifest create $ORGANIZATION/$COMPOSE_PROJECT_NAME-workspace:$TAG \
+#     $ORGANIZATION/$COMPOSE_PROJECT_NAME-workspace:$TAG-$PLATFORM
 
-#push to dockerhub
-echo "pushing shared manifest to dockerhub"
-docker manifest push --purge $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG
-docker manifest push --purge $ORGANIZATION/$COMPOSE_PROJECT_NAME-workspace:$TAG
+# #push to dockerhub
+# echo "pushing shared manifest to dockerhub"
+# docker manifest push --purge $ORGANIZATION/$COMPOSE_PROJECT_NAME-php-fpm:$TAG
+# docker manifest push --purge $ORGANIZATION/$COMPOSE_PROJECT_NAME-workspace:$TAG
