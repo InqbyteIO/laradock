@@ -5,7 +5,7 @@ PLATFORM=$2
 # build images
 echo "building image"
 cat .env.$TAG > .temp
-echo "PLATFORM=linux/$2" >> .temp
+echo "PLATFORM=$2" >> .temp
 docker compose --env-file .temp build php-fpm workspace
 rm .temp
 

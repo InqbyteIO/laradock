@@ -62,7 +62,7 @@ services:
         tags:
           - ${ORGANIZATION}/${COMPOSE_PROJECT_NAME}-workspace:${TAG}-${PLATFORM}
         platforms:
-          - ${PLATFORM}
+          - linux/${PLATFORM}
         args:
           - CHANGE_SOURCE=${CHANGE_SOURCE}
           - SHELL_OH_MY_ZSH=${SHELL_OH_MY_ZSH}
@@ -218,7 +218,7 @@ services:
         tags:
           - ${ORGANIZATION}/${COMPOSE_PROJECT_NAME}-php-fpm:${TAG}-${PLATFORM}
         platforms:
-          - ${PLATFORM}
+          - linux/${PLATFORM}
         args:
           - CHANGE_SOURCE=${CHANGE_SOURCE}
           - BASE_IMAGE_TAG_PREFIX=${PHP_FPM_BASE_IMAGE_TAG_PREFIX}
